@@ -226,6 +226,8 @@ def profile(request, user_id):
         "polluser": pu,
         "polls": users_polls
     }
+    if len(users_polls) == 0:
+        context["empty"] = True
     if user != request.user:
         context["other"] = True
         if Follow.objects.filter(user=request.user).filter(follow_user=user).exists():

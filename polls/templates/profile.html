@@ -73,8 +73,20 @@
 
             <div class="card col-md-7" style="float:right;">
               <div class="card-header">
-                <h5 class="title">Polls</h5>
+                <h5 class="title">My Polls</h5>
               </div>
+                {% if empty %}
+                      <div class="card card-nav-tabs text-center purple_bg">
+  <div class="card-header card-header-primary">
+    Hey there!
+  </div>
+  <div class="card-body">
+    <p class="card-text">It seems you dont have any polls yet, click on the button below to create polls.</p>
+    <a href="{% url 'Add Poll' %}" class="btn btn-default">Create Polls</a>
+  </div>
+
+</div>
+                {% else %}
               <div class="card-body">
                       {% for poll in polls %}
                   <h4 class="card-title">{{poll.text}}</h4>
@@ -161,6 +173,7 @@ var chart = new Chart(ctx, {
 
                       {% endfor %}
               </div>
+                {% endif %}
 
             </div>
 
