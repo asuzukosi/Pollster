@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+handler404 = 'polls.views.my_custom_page_not_found_view'
+handler500 = 'polls.views.my_custom_error_view'
+handler403 = 'polls.views.my_custom_permission_denied_view'
+handler400 = 'polls.views.my_custom_bad_request_view'
+
 urlpatterns = [
     path('', include('polls.urls')),
     path('admin/', admin.site.urls),

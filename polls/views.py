@@ -314,3 +314,35 @@ def search(request):
         context["empty"] = True
 
     return render(request, 'search.html', context)
+
+
+def my_custom_page_not_found_view(request, exception):
+    context = {
+        "error_num": "404"
+    }
+
+    return render(request, 'error.html', context)
+
+
+def my_custom_error_view(request):
+    context = {
+        "error_num": "500"
+    }
+
+    return render(request, 'error.html', context)
+
+
+def my_custom_permission_denied_view(request, exception):
+    context = {
+        "error_num": "403"
+    }
+
+    return render(request, 'error.html', context)
+
+
+def my_custom_bad_request_view(request, exception):
+    context = {
+        "error_num": "400"
+    }
+
+    return render(request, 'error.html', context)
