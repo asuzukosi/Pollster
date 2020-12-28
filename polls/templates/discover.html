@@ -2,71 +2,132 @@
 {% block title %} Discover Pollsters {% endblock title %}
 {% block info %}This page is used to discover and follow new pollsters{% endblock info %}
 {% block content %}
-<div class="row">
-
-
-    {% for puser in poll_users %}
-            <div class="card card-user col-md-4" style="float:left;">
-              <div class="card-body">
-                <p class="card-text">
-                  <div class="author">
+{% for puser in poll_users %}
+<div class="card card-user" style="width: 20rem; float: left; margin:10px; ">
+  <div class="card-body" style="height:20rem;">
+      <p class="card-text">
+        <div class="author">
                     <div class="block block-one"></div>
                     <div class="block block-two"></div>
                     <div class="block block-three"></div>
                     <div class="block block-four"></div>
                     <a href="javascript:void(0)">
-                      <h4 class="card-title">{{ puser.user }}</h4>
+                      <h4 class="card-title"> {{puser.user}} </h4>
                     </a>
                     <p class="description">
                        {{puser.user.first_name}} {{puser.user.last_name}}
                     </p>
+        </div>
 
-                <br>
+  <br>
 
-                     <div class="table-responsive">
-                  <table class="table tablesorter " id="">
-                    <thead class=" text-primary">
-                      <tr>
-                        <th>
+       <div class="table-responsive">
+               <table class="table tablesorter " id="">
+                  <thead class=" text-primary">
+                     <tr>
+                       <th>
                           polls
+                       </th>
+                       <th>
+                         Votes
                         </th>
                         <th>
-                          Votes
+                           Followers
                         </th>
-                        <th>
-                          Followers
-                        </th>
-                        <th class="text-center">
+                           <th class="text-center">
                           Following
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          {{ puser.question_count}}
-                        </td>
-                        <td>
-                          {{ puser.vote_count}}
-                        </td>
-                        <td>
-                          {{ puser.follower_count}}
-                        </td>
-                        <td class="text-center">
-                          {{ puser.following_count}}
-                        </td>
-                      </tr>
+                           </th>
+                        </tr>
+                       </thead>
+                       <tbody>
+                       <tr>
+                       <td>
+                         {{puser.question_count}}
+                       </td>
+                         <td>
+                           {{puser.vote_count}}
+                           </td>
+                           <td>
+                            {{puser.follower_count}}
+                           </td>
+                          <td class="text-center">
+                            {{puser.following_count}}
+                          </td>
+                        </tr>
 
-                    </tbody>
+                     </tbody>
                   </table>
-                </div>
-                    <a type="button"  href="{% url 'Profile' puser.user.id %}" class="btn btn-success" style="color: white;">View</a>
-                  </div>
-              </div>
+                 </div>
+                   <a type="button"  href="{% url 'Profile' puser.user.id %}" class="btn btn-success" style="color: white;">View</a>
 
-            </div>
-      </div>
-    {% endfor %}
 
+  </div>
 </div>
+
+{% endfor %}
+
+
+<!--    {% for puser in poll_users %}-->
+<!--            <div class="card card-user col-md-4" style="float:left;">-->
+<!--              <div class="card-body">-->
+<!--                <p class="card-text">-->
+<!--                  <div class="author">-->
+<!--                    <div class="block block-one"></div>-->
+<!--                    <div class="block block-two"></div>-->
+<!--                    <div class="block block-three"></div>-->
+<!--                    <div class="block block-four"></div>-->
+<!--                    <a href="javascript:void(0)">-->
+<!--                      <h4 class="card-title">{{ puser.user }}</h4>-->
+<!--                    </a>-->
+<!--                    <p class="description">-->
+<!--                       {{puser.user.first_name}} {{puser.user.last_name}}-->
+<!--                    </p>-->
+
+<!--                <br>-->
+
+<!--                     <div class="table-responsive">-->
+<!--                  <table class="table tablesorter " id="">-->
+<!--                    <thead class=" text-primary">-->
+<!--                      <tr>-->
+<!--                        <th>-->
+<!--                          polls-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                          Votes-->
+<!--                        </th>-->
+<!--                        <th>-->
+<!--                          Followers-->
+<!--                        </th>-->
+<!--                        <th class="text-center">-->
+<!--                          Following-->
+<!--                        </th>-->
+<!--                      </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                      <tr>-->
+<!--                        <td>-->
+<!--                          {{ puser.question_count}}-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                          {{ puser.vote_count}}-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                          {{ puser.follower_count}}-->
+<!--                        </td>-->
+<!--                        <td class="text-center">-->
+<!--                          {{ puser.following_count}}-->
+<!--                        </td>-->
+<!--                      </tr>-->
+
+<!--                    </tbody>-->
+<!--                  </table>-->
+<!--                </div>-->
+<!--                    <a type="button"  href="{% url 'Profile' puser.user.id %}" class="btn btn-success" style="color: white;">View</a>-->
+<!--                  </div>-->
+<!--              </div>-->
+
+<!--            </div>-->
+<!--      </div>-->
+<!--    {% endfor %}-->
+
 {% endblock content %}

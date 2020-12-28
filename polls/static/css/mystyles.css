@@ -17,3 +17,6 @@
 .to_lower{
     text-transform: none;
 }
+.spaced {
+    margin: 10px;
+}
