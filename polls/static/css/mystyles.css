@@ -1,0 +1,19 @@
+.black_text{
+    color: grey;
+}
+.generate{
+    margin-top: 20px;
+}
+.white_text{
+    color: white;
+}
+
+.delete_poll{
+    float: right;
+}
+.purple_bg{
+    background-color:  #e14eca;
+}
+.to_lower{
+    text-transform: none;
+}

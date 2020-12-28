@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Result{% endblock title %}
+{% block info %}This page displays result of a poll you voted{% endblock info %}
+{% block content %}
+<div class="card card-nav-tabs">
+  <h4 class="card-header card-header-info">Question {{ poll.id }}</h4>
+  <div class="card-body">
+    <h4 class="card-title">{{ poll.text }}</h4>
+  </div>
+</div>
+<div>
+<div class="col-lg-4" style="float: left;">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Total Votes </h5>
+                <h3 class="card-title"><i class="tim-icons icon-chart-pie-36 text-info"></i>3</h3>
+              </div>
+                    <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table tablesorter " id="vote_data">
+                    <thead class=" text-primary">
+                      <tr>
+                        <th>
+                          Option
+                        </th>
+                        <th class="text-center">
+                            Votes
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for option in poll.choices_set.all%}
+                      <tr>
+                        <td class="option_name">
+                          {{ option.text }}
+                        </td>
+                        <td class="text-center option_value">
+                          {{ option.votes }}
+                        </td>
+                      </tr>
+                     {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+           <div class="col-lg-6" style="float: left;">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category"> Bar Chart</h5>
+                <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i>{{ poll.text }}</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                        <canvas id="myChart" style="float: right"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    var lis = document.getElementById("vote_data").getElementsByClassName("option_name");
+    var num_lis = document.getElementById("vote_data").getElementsByClassName("option_value");
+    var list = [];
+    var num_list = []
+    for (const li of lis) {
+    list.push(li.textContent);
+}
+    for (const li of num_lis) {
+    num_list.push(parseInt(li.textContent));
+}
+    console.log(lis)
+    var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: list,
+        datasets: [{
+            label: 'choice data',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: num_list
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
+{% endblock content %}

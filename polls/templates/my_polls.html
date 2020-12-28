@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}{{request.user}}'s Polls{% endblock title %}
+{% block info %}This page is the page that shows all the polls posted by you {% endblock info%}
+{% block content %}
+{% if empty %}
+     <div class="card card-nav-tabs text-center purple_bg">
+  <div class="card-header card-header-primary">
+    Hey there!
+  </div>
+  <div class="card-body">
+    <p class="card-text">It seems there it seems you haven't made any polls yes, start now by clicking on the button below.</p>
+    <a href="{% url 'Add Poll'%}" class="btn btn-default">Create Poll</a>
+  </div>
+
+</div>
+{% else %}
+{% for poll in polls %}
+
+<div class="card" style="width: 20rem; float: left; margin:10px; ">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="poll_id" style="display: none;" value = "{{ poll.id }}">
+          <button class="btn btn-warning btn-fab btn-icon btn-round delete_poll" type="submit">
+  <i class="tim-icons icon-simple-remove "></i>
+</button>
+    </form>
+
+    <h4 class="card-title">Question {{poll.id }}</h4>
+
+    <h6 class="card-subtitle mb-2 text-muted">{{ poll.date_published }}</h6>
+    <p class="card-text">{{poll.text}}</p>
+    <div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    {% for choice in poll.choices_set.all %}
+    <li class="list-group-item black_text">{{choice.text}}</li>
+    {% endfor %}
+  </ul>
+</div>
+    <h6 class="card-subtitle mb-2 text-muted">{{poll.user}}</h6>
+    <a type="button" href="{% url 'Result' poll.id %}" class="btn btn-default">Result</a>
+
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock content %}

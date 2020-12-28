@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title%}Result Map{% endblock title%}
+{% block info %}This page shows charts of all polls you have voted{% endblock info %}
+{% block content %}
+{% if length == 0 %}
+     <div class="card card-nav-tabs text-center purple_bg">
+  <div class="card-header card-header-primary">
+    Hey there!
+  </div>
+  <div class="card-body">
+    <p class="card-text">It seems you haven't voted any polls yet, you can start voting by clicking the button below.</p>
+    <a href="{% url 'Polls'%}" class="btn btn-default">Vote Polls</a>
+  </div>
+
+</div>
+{% else %}
+    {% for question in questions %}
+
+ <div id = "myChart{{question.id}}" style="display:none;">
+    {% for choice in question.choices_set.all %}
+        <div class="option_name">{{choice.text}}</div><div class="option_value">{{choice.votes}}</div>
+     {% endfor %}
+ </div>
+         <div class="col-lg-10" style="float: left;">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category"> Bar Chart</h5>
+                <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-info"></i>{{ question.text }}</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                        <canvas id="Chart{{question.id}}" style="float: right"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    var current_chart = "myChart{{question.id}}";
+    var draw_chart = "Chart{{question.id}}";
+    var lis = document.getElementById(current_chart).getElementsByClassName("option_name");
+
+    var num_lis = document.getElementById(current_chart).getElementsByClassName("option_value");
+    var list = [];
+    var num_list = []
+    for (const li of lis) {
+    list.push(li.textContent);
+}
+
+    for (const li of num_lis) {
+    num_list.push(parseInt(li.textContent));
+}
+
+    var ctx = document.getElementById(draw_chart).getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: list,
+        datasets: [{
+            label: 'choice data',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: num_list
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+
+    {% endfor %}
+{% endif %}
+{% endblock content%}

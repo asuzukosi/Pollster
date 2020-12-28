@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Vote{% endblock title %}
+{% block info %}This page is used to vote for polls {% endblock info %}
+{% block content %}
+<div class="card card-nav-tabs">
+  <div class="card-header card-header-success">
+    Question
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{poll.text}}</p>
+      <footer class="blockquote-footer">{{poll.user}} in <cite title="Source Title">We Love Polls</cite></footer>
+    </blockquote>
+  </div>
+</div>
+{% if already_voted %}
+<div class="card-body">
+    <h4 class="card-title">You've already voted!</h4>
+    <p class="card-text">Hey there, you've already voted for this poll and you can't vote twice. You can view the results of this poll by clicking on the button below.</p>
+    <a href="{% url 'Result' poll.id %}" class="btn btn-default">Go to results</a>
+  </div>
+
+{% else%}
+{% for choice in poll.choices_set.all %}
+<div class="card card-nav-tabs">
+  <div class="card-body">
+    <h4 class="card-title">{{choice.text}}</h4>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="option" value="{{choice.id}}" style="display: none;">
+      <button type="submit" class="btn btn-primary">VOTE</button>
+    </form>
+
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock content %}

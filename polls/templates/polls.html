@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Polls{% endblock title %}
+{% block info %} This page renders all the polls and allows you to vote by clicking the vote button, if you have already voted that poll, it will take you straight to the results page{% endblock info %}
+{% block content %}
+<div class="card card-nav-tabs text-center">
+
+  <div class="card-body">
+    <h4 class="card-title">These are recent polls by pollsters you follow</h4>
+  </div>
+
+</div>
+{% if main_is_empty %}
+  <div class="card card-nav-tabs text-center purple_bg">
+  <div class="card-header card-header-primary">
+    Hey there!
+  </div>
+  <div class="card-body">
+    <p class="card-text">It seems there are no new polls by the pollsters you follow, you can discover more pollsters by clicking on the button below.</p>
+    <a href="{% url 'Discover'%}" class="btn btn-default">Discover pollsters</a>
+  </div>
+
+</div>
+{% else %}
+{% for poll in main_polls%}
+<div class="card" style="width: 20rem; float: left; margin:10px; ">
+  <div class="card-body" style="height:25rem;">
+    <h4 class="card-title">Question {{poll.id }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{ poll.date_published }}</h6>
+    <p class="card-text">{{poll.text}}</p>
+    <div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    {% for choice in poll.choices_set.all %}
+    <li class="list-group-item black_text">{{choice.text}}</li>
+    {% endfor %}
+  </ul>
+</div>
+    <a href="{% url 'Profile' poll.user.id %}"><h6 class="card-subtitle mb-2 text-muted to_lower">{{poll.user}}</h6></a>
+    <a type="button" href="{% url 'Vote' poll.id %}" class="btn btn-success">Vote</a>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<br>
+<br>
+
+<div class="card card-nav-tabs text-center">
+
+  <div class="card-body">
+    <h4 class="card-title"> Here are other polls by our pollsters </h4>
+  </div>
+
+</div>
+
+
+{% for poll in sub_polls %}
+<div class="card" style="width: 20rem; float: left; margin:10px; ">
+  <div class="card-body" style="height:25rem;">
+    <h4 class="card-title">Question {{poll.id }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{ poll.date_published }}</h6>
+    <p class="card-text">{{poll.text}}</p>
+    <div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    {% for choice in poll.choices_set.all %}
+    <li class="list-group-item black_text">{{choice.text}}</li>
+    {% endfor %}
+  </ul>
+</div>
+    <a href="{% url 'Profile' poll.user.id %}"><h6 class="card-subtitle mb-2 text-muted to_lower">{{poll.user}}</h6></a>
+    <a type="button" href="{% url 'Vote' poll.id %}" class="btn btn-success">Vote</a>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}

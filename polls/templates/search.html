@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Search {{search}}{% endblock title %}
+{% block info %}These are the search results for {{search}}{% endblock info %}
+{% block content %}
+{% if empty %}
+ <div class="card card-nav-tabs text-center purple_bg">
+  <div class="card-header card-header-primary">
+    Oops!
+  </div>
+  <div class="card-body">
+    <p class="card-text">It seems there are no polls that match your search request, try improving your search with less specific search requests.</p>
+  </div>
+</div>
+{% else %}
+
+{% for poll in search_polls %}
+<div class="card" style="width: 20rem; float: left; margin:10px; ">
+  <div class="card-body" style="height:25rem;">
+    <h4 class="card-title">Question {{poll.id }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{ poll.date_published }}</h6>
+    <p class="card-text">{{poll.text}}</p>
+    <div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    {% for choice in poll.choices_set.all %}
+    <li class="list-group-item black_text">{{choice.text}}</li>
+    {% endfor %}
+  </ul>
+</div>
+    <a href="{% url 'Profile' poll.user.id %}"><h6 class="card-subtitle mb-2 text-muted to_lower">{{poll.user}}</h6></a>
+    <a type="button" href="{% url 'Vote' poll.id %}" class="btn btn-success">Vote</a>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock content %}

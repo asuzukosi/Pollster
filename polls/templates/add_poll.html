@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %} Add poll {% endblock title %}
+{% block info %}This page is used to add new polls( remember to set the number of options you want for your poll before typing the question){% endblock info %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <form method="post" action="{% url 'Add Poll Process'%}">
+        {% csrf_token %}
+        <input type="text" name="number_of_choices" value="{{total}}" style="display: none; ">
+         <div class="form-group">
+        <label>Enter your poll question : </label>
+        <textarea class="form-control" rows="3" name="text"></textarea>
+      </div>
+
+       {% for i in nums %}
+          <label>Option {{i}}</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="tim-icons icon-link-72"></i>
+           </div>
+         </div>
+        <input type="text" name="{{i}}" class="form-control" placeholder="Option {{i}}">
+      </div>
+        {% endfor %}
+
+        <button class="btn btn-primary btn-simple" type="submit">Create Poll</button>
+
+    </form>
+
+       <div class="row">
+            <form method = "post">
+                {% csrf_token %}
+                 <div class="col">
+           <div class="form-group">
+        <label >Select your number of options </label>
+        <select class="form-control" name="number_choices">
+          <option class="black_text" value="2">2</option>
+          <option class="black_text" value="3">3</option>
+          <option class="black_text" value="4">4</option>
+        </select>
+      </div>
+
+        </div>
+        <div class="col">
+
+          <button class="btn btn-default animation-on-hover generate" type="submit">Generate</button>
+            <br>
+            <p1> Generate specified number of options</p1>
+
+        </div>
+            </form>
+
+      </div>
+  </div>
+</div>
+{% endblock content %}
