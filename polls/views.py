@@ -12,6 +12,15 @@ from django.utils import timezone
 import datetime
 
 
+def reverse(mlist):
+    leni = len(mlist)
+    length = int(leni/2)
+    for i in range(length):
+        mlist[i], mlist[leni - (i + 1)] = mlist[leni - (i + 1)],  mlist[i]
+
+    return mlist
+
+
 def home(request):
     return render(request, 'home.html', {})
 
@@ -103,8 +112,8 @@ def polls(request):
             sub_list.append(poll)
 
     context = {
-        "main_polls": main_list,
-        "sub_polls": sub_list,
+        "main_polls": reverse(main_list),
+        "sub_polls": reverse(sub_list),
     }
 
     if len(main_list) == 0:
