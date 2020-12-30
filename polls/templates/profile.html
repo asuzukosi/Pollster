@@ -73,10 +73,21 @@
 
             <div class="card col-md-7" style="float:right;">
               <div class="card-header">
-                <h5 class="title">My Polls</h5>
+                <h5 class="title">{{user}}'s Polls</h5>
               </div>
                 {% if empty %}
-                      <div class="card card-nav-tabs text-center purple_bg">
+                 {% if other %}
+  <div class="card card-nav-tabs text-center purple_bg">
+  <div class="card-header card-header-primary">
+    Oops!!
+  </div>
+  <div class="card-body">
+    <p class="card-text">It seems looks like {{user}} doesnt have any polls yet, but dont worry, soon enough they will.</p>
+  </div>
+
+</div>
+                {% else %}
+                <div class="card card-nav-tabs text-center purple_bg">
   <div class="card-header card-header-primary">
     Hey there!
   </div>
@@ -86,6 +97,7 @@
   </div>
 
 </div>
+                {% endif %}
                 {% else %}
               <div class="card-body">
                       {% for poll in polls %}

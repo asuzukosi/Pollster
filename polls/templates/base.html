@@ -31,7 +31,7 @@
       <div class="sidebar-wrapper">
         <div class="logo">
           <a href="javascript:void(0)" class="simple-text logo-mini">
-            USR
+            USER
           </a>
           <a href="javascript:void(0)" class="simple-text logo-normal">
             {{ request.user }}
@@ -40,37 +40,67 @@
         <ul class="nav">
           <li>
             <a href="{% url 'Polls'%}">
-              <i class="tim-icons icon-single-copy-04"></i>
-              <p>Polls</p>
+              {% load static %}
+              <div>
+              <img src="{% static 'img/poll.png'%}" alt="add" style="height: 20px; display: inline-block; margin-left:10px;">
+              <p style="display: inline-block; margin-left: 20px;">Polls</p>
+
+              </div>
             </a>
           </li>
           <li>
             <a href="{% url 'My Polls'%}">
-              <i class="tim-icons icon-paper"></i>
-              <p>My Polls</p>
+              {% load static %}
+              <div>
+              <img src="{% static 'img/ballot.png'%}" alt="add" style="height: 20px; display: inline-block; margin-left:10px;">
+              <p style="display: inline-block; margin-left: 20px;"> My Polls</p>
+
+              </div>
             </a>
           </li>
 
 
           <li>
             <a href="{% url 'Result map'%}">
-                <i class="tim-icons icon-chart-bar-32"></i>
-              <p>Result map</p>
+            {% load static %}
+              <div>
+              <img src="{% static 'img/analysis.png'%}" alt="add" style="height: 20px; display: inline-block; margin-left:10px;">
+              <p style="display: inline-block; margin-left: 20px;">Result map</p>
+
+              </div>
             </a>
           </li>
 
 
           <li>
             <a href="{% url 'Add Poll'%}">
-                <i class="tim-icons icon-simple-add"></i>
-              <p>Add Polls</p>
+              {% load static %}
+              <div>
+              <img src="{% static 'img/plus.png'%}" alt="add" style="height: 20px; display: inline-block; margin-left:10px;">
+              <p style="display: inline-block; margin-left: 20px;">Add Polls</p>
+
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'Add Poll'%}">
+                {% load static %}
+              <div>
+              <img src="{% static 'img/user.png'%}" alt="add" style="height: 20px; display: inline-block; margin-left:10px;">
+              <p style="display: inline-block; margin-left: 20px;">Add Polls</p>
+
+              </div>
             </a>
           </li>
 
           <li>
             <a href="{% url 'Logout'%}">
-                <i class="tim-icons icon-double-left"></i>
-              <p>Logout</p>
+                  {% load static %}
+              <div>
+              <img src="{% static 'img/left-arrow.png'%}" alt="add" style="height: 20px; display: inline-block; margin-left:10px;">
+              <p style="display: inline-block; margin-left: 20px;">Logout</p>
+
+              </div>
             </a>
           </li>
 
@@ -107,16 +137,11 @@
               <li class="separator d-lg-none"></li>
 
               <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" ></i>
+                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><img
+                        src="{% static 'img/loupe.png'%}" alt="search" style="height: 30px;">
                   <span class="d-lg-none d-md-block">Search</span>
                 </button>
               </li>
-              <li class="nav-item">
-                <a href=" {% url 'Profile' request.user.id %}" class="nav-link">
-                  <i class="tim-icons icon-single-02 "></i>
-                </a>
-              </li>
-
             </ul>
           </div>
         </div>
