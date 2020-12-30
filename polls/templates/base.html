@@ -83,7 +83,7 @@
             </a>
           </li>
           <li>
-            <a href="{% url 'Add Poll'%}">
+            <a href="{% url 'Profile' request.user.id %}">
                 {% load static %}
               <div>
               <img src="{% static 'img/user.png'%}" alt="add" style="height: 20px; display: inline-block; margin-left:10px;">
